@@ -3,19 +3,20 @@ import { Link } from "react-router-dom";
 
 const CourseRow = ({
 	course,
-	lastModified = "1/1/2021",
-	owner = "who knows?",
+	lastModified,
+	owner,
 	deleteCourse,
 	updateCourse,
+	title,
 }) => {
 	const [editing, setEditing] = useState(false);
-	const [title, setTitle] = useState(course.title);
+	const [newTitle, setNewTitle] = useState(title);
 
-	const saveCourse = () => {
+	const saveTitle = () => {
 		setEditing(false);
 		const newCourse = {
 			...course,
-			title: title,
+			title: newTitle,
 		};
 		updateCourse(newCourse);
 	};
@@ -23,29 +24,27 @@ const CourseRow = ({
 	return (
 		<tr>
 			<td>
-				{!editing && <Link to="/editor">{course.title}</Link>}
+				{!editing && (
+					<Link to={`/courses/editor/${course._id}`}>{title}</Link>
+				)}
 				{editing && (
 					<input
+						onChange={(e) => setNewTitle(e.target.value)}
+						value={newTitle}
 						className="form-control"
-						onChange={(e) => setTitle(e.target.value)}
-						value={title}
 					/>
 				)}
 			</td>
-			<td>{course.owner}</td>
-			<td>{course.lastModified}</td>
+			<td>{owner}</td>
+			<td>{lastModified}</td>
 			<td>
 				<i
 					onClick={() => deleteCourse(course)}
 					className="fas fa-trash"
 				></i>
-				{/*<i onClick={() => setEditing((prevEditing) => !prevEditing)} className="fas fa-edit"></i>*/}
 
 				{editing && (
-					<i
-						onClick={() => saveCourse()}
-						className="fas fa-check"
-					></i>
+					<i onClick={() => saveTitle()} className="fas fa-check"></i>
 				)}
 
 				{!editing && (

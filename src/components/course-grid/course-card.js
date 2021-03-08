@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const CourseCard = ({ course, deleteCourse, updateCourse }) => {
+const CourseCard = ({ course, deleteCourse, updateCourse, key }) => {
 	const [editing, setEditing] = useState(false);
 	const [title, setTitle] = useState(course.title);
 
@@ -23,7 +23,10 @@ const CourseCard = ({ course, deleteCourse, updateCourse }) => {
 			/>
 			<div className="card-body">
 				{!editing && (
-					<Link to="/editor" className="card-title">
+					<Link
+						to={`/courses/editor/${course._id}`}
+						className="card-title"
+					>
 						{course.title}
 					</Link>
 				)}
