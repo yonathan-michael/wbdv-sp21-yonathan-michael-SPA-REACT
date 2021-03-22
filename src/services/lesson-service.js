@@ -18,10 +18,10 @@ export const findLessonsForModule = (moduleId) =>
         response.json()
     );
 
-export const updateLesson = (lessonId) =>
+export const updateLesson = (lessonId, lesson) =>
     fetch(`${LESSONS_URL}/${lessonId}`, {
         method: "PUT",
-        body: JSON.stringify(module),
+        body: JSON.stringify(lesson),
         headers: {
             "content-type": "application/json",
         },
