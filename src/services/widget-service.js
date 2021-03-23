@@ -1,5 +1,8 @@
+const TOPICS_URL = `https://webdev-java-server-yonathan-m.herokuapp.com/api/topics`;
+const WIDGETS_URL = `https://webdev-java-server-yonathan-m.herokuapp.com/api/widgets`;
+
 export const createWidget = (tid, widget) =>
-    fetch(`http://localhost:8080/api/topics/${tid}/widgets`, {
+    fetch(`${TOPICS_URL}/${tid}/widgets`, {
         method: "POST",
         body: JSON.stringify(widget),
         headers: {
@@ -8,15 +11,15 @@ export const createWidget = (tid, widget) =>
     }).then((response) => response.json());
 
 export const findWidgetsForTopic = (tid) =>
-    fetch(`/api/topics/{tid}/widgets`).then((response) => response.json());
+    fetch(`${TOPICS_URL}/${tid}/widgets`).then((response) => response.json());
 
 export const deleteWidget = (wid) =>
-    fetch(`http://localhost:8080/api/widgets/${wid}`, {
+    fetch(`${WIDGETS_URL}/${wid}`, {
         method: "DELETE",
     }).then((response) => response.json());
 
 export const updateWidget = (wid, widget) =>
-    fetch(`http://localhost:8080/api/widgets/${wid}`, {
+    fetch(`${WIDGETS_URL}/${wid}`, {
         method: "PUT",
         body: JSON.stringify(widget),
         headers: {
