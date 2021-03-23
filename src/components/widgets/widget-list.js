@@ -6,14 +6,26 @@ import { useParams } from "react-router-dom";
 import WidgetService from "../../services/widget-service";
 
 const WidgetList = ({
-	MyWidgets = [],
+	mywidgets = [{}],
 	createWidget,
 	findWidgetsForTopic,
 	deleteWidget,
 	updateWidget,
 }) => {
-	const { courseId, moduleId, lessonId, topicId, widgetId } = useParams();
-
+	const {
+		courseId,
+		moduleId,
+		lessonId,
+		topicId,
+		layout,
+		widgetId,
+	} = useParams();
+	const [editing, setEditing] = useState({});
+	useEffect(() => {
+		if (topicId !== "undefined" && typeof topicId !== "undefined") {
+			findWidgetsForTopic(topicId);
+		}
+	}, []);
 	return (
 		<div>
 			<i
@@ -21,19 +33,55 @@ const WidgetList = ({
 				className="fas fa-plus float-right fa-2x"
 			></i>
 			<h1>Widget List</h1>
+			{JSON.stringify(mywidgets)}
 			<ul className="list-group">
-				{MyWidgets.map((_widget) => (
-					<li key={_widget.id} className="list-group-item">
-						{_widget.type === "HEADING" && (
+				{mywidgets.map((widget) => (
+					<li className="list-group-item" key={widget.id}>
+						{editing.id === widget.id && (
+							<>
+								<select
+									className="form-control"
+									onChange={(e) => {
+										widget.type = e.target.value;
+										updateWidget(widget);
+									}}
+									value={widget.type}
+								>
+									<option value={"HEADING"}>Heading</option>
+									<option value={"PARAGRAPH"}>
+										Paragraph
+									</option>
+								</select>
+								<i
+									onClick={() => deleteWidget(widget)}
+									className="fas fa-times fa-2x float-right"
+								></i>
+							</>
+						)}
+						{editing.id !== widget.id && (
+							<>
+								<i
+									onClick={() => setEditing(widget)}
+									className="fas fa-cog fa-2x float-right"
+								></i>
+							</>
+						)}
+
+						{widget.type === "HEADING" && (
 							<HeadingWidget
+								editing={editing.id === widget.id}
+								widget={widget}
 								updateWidget={updateWidget}
-								deleteWidget={deleteWidget}
-								widget={_widget}
-								to={`/courses/editor/${courseId}/${moduleId}/${lessonId}/${topicId}/${_widget.id}`}
+								setEditing={setEditing}
 							/>
 						)}
-						{_widget.type === "PARAGRAPH" && (
-							<ParagraphWidget widget={_widget} />
+						{widget.type === "PARAGRAPH" && (
+							<ParagraphWidget
+								editing={editing.id === widget.id}
+								widget={widget}
+								updateWidget={updateWidget}
+								setEditing={setEditing}
+							/>
 						)}
 					</li>
 				))}
@@ -43,15 +91,15 @@ const WidgetList = ({
 };
 
 const stpm = (state) => ({
-	MyWidgets: state.widgetReducer.widgets,
+	mywidgets: state.widgetReducer.widgets,
 });
 
 const dtpm = (dispatch) => ({
 	findWidgetsForTopic: (topicId) => {
-		WidgetService.findWidgetsForTopic(topicId).then((widgets) =>
+		WidgetService.findWidgetsForTopic(topicId).then((topic_widgets) =>
 			dispatch({
 				type: "FIND_ALL_WIDGETS_FOR_TOPIC",
-				widgets,
+				widgets: topic_widgets,
 			})
 		);
 	},
@@ -60,23 +108,24 @@ const dtpm = (dispatch) => ({
 			type: "HEADING",
 			size: 1,
 			text: "New Heading",
-		}).then((widget) =>
+		}).then((actualWidget) =>
 			dispatch({
 				type: "CREATE_WIDGET",
-				widget,
+				widget: actualWidget,
 			})
 		);
 	},
-	updateWidget: (widget) => {
-		WidgetService.updateWidget(widget._id, widget).then((status) =>
+	updateWidget: (widget, topicId) => {
+		WidgetService.updateWidget(widget.id, widget).then((status) =>
 			dispatch({
 				type: "UPDATE_WIDGET",
-				widget,
+				widget: widget,
 			})
 		);
 	},
+
 	deleteWidget: (widget) => {
-		WidgetService.deleteWidget(widget._id).then((status) =>
+		WidgetService.deleteWidget(widget.id).then((status) =>
 			dispatch({
 				type: "DELETE_WIDGET",
 				widgetToDelete: widget,

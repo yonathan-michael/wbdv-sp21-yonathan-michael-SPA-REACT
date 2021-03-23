@@ -8,9 +8,7 @@ export const createWidget = (tid, widget) =>
     }).then((response) => response.json());
 
 export const findWidgetsForTopic = (tid) =>
-    fetch(`http://localhost:8080/api/topics/${tid}/widgets`).then((response) =>
-        response.json()
-    );
+    fetch(`/api/topics/{tid}/widgets`).then((response) => response.json());
 
 export const deleteWidget = (wid) =>
     fetch(`http://localhost:8080/api/widgets/${wid}`, {

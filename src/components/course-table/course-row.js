@@ -25,7 +25,9 @@ const CourseRow = ({
 		<tr>
 			<td>
 				{!editing && (
-					<Link to={`/courses/editor/${course._id}`}>{title}</Link>
+					<Link to={`/courses/table/edit/${course._id}`}>
+						{title}
+					</Link>
 				)}
 				{editing && (
 					<input

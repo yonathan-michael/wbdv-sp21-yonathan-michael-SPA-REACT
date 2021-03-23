@@ -23,18 +23,15 @@ const CourseCard = ({ course, deleteCourse, updateCourse, key }) => {
 			/>
 			<div className="card-body">
 				{!editing && (
-					<Link
-						to={`/courses/editor/${course._id}`}
-						className="card-title"
-					>
+					<Link to={`/courses/grid/edit/${course._id}`}>
 						{course.title}
 					</Link>
 				)}
 				{editing && (
 					<input
-						className="form-control"
-						onChange={(e) => setTitle(e.target.value)}
+						onChange={(event) => setTitle(event.target.value)}
 						value={title}
+						className="form-control"
 					/>
 				)}
 				<p className="card-text">Course Description</p>
