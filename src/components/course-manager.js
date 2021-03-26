@@ -58,27 +58,27 @@ class CourseManager extends React.Component {
 	render() {
 		return (
 			<div>
-				<div class="row">
-					<div class="col-11">
+				<div className="row">
+					<div className="col-11">
 						<h3>Course Manager</h3>
 					</div>
-					<div class="col-1">
+					<div className="col-1">
 						<Link to="/">
 							<i className="fas fa-2x fa-home float-right"></i>
 						</Link>
 					</div>
 				</div>
 
-				<div class="row">
-					<div class="col-10">
+				<div className="row">
+					<div className="col-10">
 						<input
 							type="text"
-							class="form-control"
+							className="form-control"
 							placeholder="Course Name"
 							ref={this.courseName}
 						></input>
 					</div>
-					<div class="col-2">
+					<div className="col-2">
 						<button onClick={this.addCourse}>
 							<i className="fas fa-plus"></i>
 						</button>

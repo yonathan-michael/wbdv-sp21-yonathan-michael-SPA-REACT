@@ -9,19 +9,21 @@ export default class CourseTable extends React.Component {
 
 	render() {
 		return (
-			<div class="container-fluid">
+			<div className="container-fluid">
 				<table className="table">
 					<thead>
-						<th>Title</th>
-						<th>Owned By</th>
-						<th>Last Modified</th>
-						<th>
-							<i class="fas fa-folder"></i>
-							<i class="fas fa-sort-alpha-down"></i>
-							<Link to="/courses/grid">
-								<i className="fas fa-th"></i>
-							</Link>
-						</th>
+						<tr>
+							<th>Title</th>
+							<th>Owned By</th>
+							<th>Last Modified</th>
+							<th>
+								<i className="fas fa-folder"></i>
+								<i className="fas fa-sort-alpha-down"></i>
+								<Link to="/courses/grid">
+									<i className="fas fa-th"></i>
+								</Link>
+							</th>
+						</tr>
 					</thead>
 					<tbody>
 						{this.props.courses.map((course, ndx) => (

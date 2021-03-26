@@ -6,26 +6,20 @@ import { useParams } from "react-router-dom";
 import WidgetService from "../../services/widget-service";
 
 const WidgetList = ({
-	mywidgets = [{}],
+	mywidgets = [],
 	createWidget,
 	findWidgetsForTopic,
 	deleteWidget,
 	updateWidget,
 }) => {
-	const {
-		courseId,
-		moduleId,
-		lessonId,
-		topicId,
-		layout,
-		widgetId,
-	} = useParams();
-	const [editing, setEditing] = useState({});
+	const { courseId, moduleId, lessonId, topicId, layout } = useParams();
+	const [editingWidget, setEditingWidget] = useState({});
 	useEffect(() => {
 		if (topicId !== "undefined" && typeof topicId !== "undefined") {
+			console.log("hello");
 			findWidgetsForTopic(topicId);
 		}
-	}, []);
+	}, [topicId]);
 	return (
 		<div>
 			<i
@@ -33,11 +27,11 @@ const WidgetList = ({
 				className="fas fa-plus float-right fa-2x"
 			></i>
 			<h1>Widget List</h1>
-			{JSON.stringify(mywidgets)}
+
 			<ul className="list-group">
 				{mywidgets.map((widget) => (
 					<li className="list-group-item" key={widget.id}>
-						{editing.id === widget.id && (
+						{editingWidget.id === widget.id && (
 							<>
 								<select
 									className="form-control"
@@ -58,10 +52,10 @@ const WidgetList = ({
 								></i>
 							</>
 						)}
-						{editing.id !== widget.id && (
+						{editingWidget.id !== widget.id && (
 							<>
 								<i
-									onClick={() => setEditing(widget)}
+									onClick={() => setEditingWidget(widget)}
 									className="fas fa-cog fa-2x float-right"
 								></i>
 							</>
@@ -69,18 +63,18 @@ const WidgetList = ({
 
 						{widget.type === "HEADING" && (
 							<HeadingWidget
-								editing={editing.id === widget.id}
+								editing={editingWidget.id === widget.id}
 								widget={widget}
 								updateWidget={updateWidget}
-								setEditing={setEditing}
+								setEditing={setEditingWidget}
 							/>
 						)}
 						{widget.type === "PARAGRAPH" && (
 							<ParagraphWidget
-								editing={editing.id === widget.id}
+								editing={editingWidget.id === widget.id}
 								widget={widget}
 								updateWidget={updateWidget}
-								setEditing={setEditing}
+								setEditing={setEditingWidget}
 							/>
 						)}
 					</li>
@@ -115,7 +109,7 @@ const dtpm = (dispatch) => ({
 			})
 		);
 	},
-	updateWidget: (widget, topicId) => {
+	updateWidget: (widget) => {
 		WidgetService.updateWidget(widget.id, widget).then((status) =>
 			dispatch({
 				type: "UPDATE_WIDGET",

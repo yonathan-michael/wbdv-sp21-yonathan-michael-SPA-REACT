@@ -14,7 +14,6 @@ const widgetReducer = (state = initialState, action) => {
                 ...state,
                 widgets: action.widgets,
             };
-
         case "DELETE_WIDGET":
             const newState1 = {
                 widgets: state.widgets.filter((widget) => {

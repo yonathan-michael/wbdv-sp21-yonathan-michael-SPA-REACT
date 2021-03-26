@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 
-const HeadingWidget = ({
-	widget,
-	updateWidget,
-	deleteWidget,
-	to,
-	editing,
-	setEditing,
-}) => {
+const HeadingWidget = ({ widget, updateWidget, editing, setEditing }) => {
 	const [cachedWidget, setWidget] = useState(widget);
 
 	return (
@@ -21,7 +14,6 @@ const HeadingWidget = ({
 						}}
 						className="fas fa-check fa-2x float-right"
 					></i>
-					{/*<i onClick={() => deleteWidget(item)} className="fas fa-times"></i>*/}
 					<input
 						className="form-control"
 						onChange={(e) =>
