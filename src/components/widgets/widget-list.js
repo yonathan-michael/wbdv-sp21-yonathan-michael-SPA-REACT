@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import HeadingWidget from "./heading-widget";
 import ParagraphWidget from "./paragraph-widget";
+import ListWidget from "./list-widget";
+import ImageWidget from "./image-widget";
 import { useParams } from "react-router-dom";
 import WidgetService from "../../services/widget-service";
 
@@ -45,6 +47,8 @@ const WidgetList = ({
 									<option value={"PARAGRAPH"}>
 										Paragraph
 									</option>
+									<option value={"LIST"}>List</option>
+									<option value={"IMAGE"}>Image</option>
 								</select>
 								<i
 									onClick={() => deleteWidget(widget)}
@@ -71,6 +75,22 @@ const WidgetList = ({
 						)}
 						{widget.type === "PARAGRAPH" && (
 							<ParagraphWidget
+								editing={editingWidget.id === widget.id}
+								widget={widget}
+								updateWidget={updateWidget}
+								setEditing={setEditingWidget}
+							/>
+						)}
+						{widget.type === "LIST" && (
+							<ListWidget
+								editing={editingWidget.id === widget.id}
+								widget={widget}
+								updateWidget={updateWidget}
+								setEditing={setEditingWidget}
+							/>
+						)}
+						{widget.type === "IMAGE" && (
+							<ImageWidget
 								editing={editingWidget.id === widget.id}
 								widget={widget}
 								updateWidget={updateWidget}
