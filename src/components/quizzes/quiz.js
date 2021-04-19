@@ -38,6 +38,7 @@ const Quiz = () => {
                 onClick={() => {
                     setGraded(true);
                     QuizService.submitQuiz(quizId, Questions);
+                    console.log(Questions);
                 }}
             >
                 Submit

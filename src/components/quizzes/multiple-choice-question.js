@@ -55,7 +55,8 @@ const MultipleChoiceQuestion = ({ question, graded, setGraded }) => {
                                     <input
                                         onClick={() => {
                                             setAnswer(choice);
-                                            question.answer = answer;
+                                            question.answer = choice;
+                                            console.log(question);
                                         }}
                                         type="radio"
                                         name={question._id}

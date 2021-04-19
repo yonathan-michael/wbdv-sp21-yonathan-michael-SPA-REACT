@@ -3,6 +3,11 @@ const QUIZZES_URL = `http://localhost:3001/api/quizzes`;
 export const findAllQuizzes = () =>
 	fetch(`${QUIZZES_URL}`).then((response) => response.json());
 
+export const findAttemptsForQuiz = (quizId) =>
+	fetch(
+		`http://localhost:3001/api/quizzes/${quizId}/attempts`
+	).then((response) => response.json());
+
 export const submitQuiz = (quizId, questions) => {
 	fetch(`http://localhost:3001/api/quizzes/${quizId}/attempts`, {
 		method: "POST",
@@ -18,6 +23,7 @@ export const submitQuiz = (quizId, questions) => {
 const api = {
 	findAllQuizzes,
 	submitQuiz,
+	findAttemptsForQuiz,
 };
 
 export default api;

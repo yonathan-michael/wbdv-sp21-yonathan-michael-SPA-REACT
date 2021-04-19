@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import QuizService from "../../services/quiz-service";
+import QuizAttempts from "./QuizAttempts";
 import { Link, useParams } from "react-router-dom";
 
 const Quizzes = ({}) => {
@@ -21,6 +22,7 @@ const Quizzes = ({}) => {
 							<li>
 								<h2>{quiz.title}</h2>
 							</li>
+							<QuizAttempts quizId={quiz._id} />
 						</Link>
 					);
 				})}

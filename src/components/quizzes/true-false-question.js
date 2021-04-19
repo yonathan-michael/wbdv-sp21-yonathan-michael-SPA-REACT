@@ -27,7 +27,8 @@ const TrueFalseQuestion = ({ question, graded, setGraded }) => {
                                     type="radio"
                                     onClick={() => {
                                         setAnswer("true");
-                                        question.answer = answer;
+                                        question.answer = "true";
+                                        console.log(question);
                                     }}
                                     name={question._id}
                                 />
@@ -40,7 +41,8 @@ const TrueFalseQuestion = ({ question, graded, setGraded }) => {
                                     type="radio"
                                     onClick={() => {
                                         setAnswer("false");
-                                        question.answer = answer;
+                                        question.answer = "false";
+                                        console.log(question);
                                     }}
                                     name={question._id}
                                 />
