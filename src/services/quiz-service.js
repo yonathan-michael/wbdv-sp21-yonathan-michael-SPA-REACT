@@ -1,18 +1,18 @@
 // const QUIZZES_URL = `http://localhost:3001/api/quizzes`;
 
-const QUIZZES_URL = `http://quiz-server-01.herokuapp.com/api/quizzes`;
+const QUIZZES_URL = `https://quiz-server-01.herokuapp.com/api/quizzes`;
 
 export const findAllQuizzes = () =>
 	fetch(`${QUIZZES_URL}`).then((response) => response.json());
 
 export const findAttemptsForQuiz = (quizId) =>
 	fetch(
-		`http://quiz-server-01.herokuapp.com/api/quizzes/${quizId}/attempts`
+		`https://quiz-server-01.herokuapp.com/api/quizzes/${quizId}/attempts`
 	).then((response) => response.json());
 
 export const submitQuiz = (quizId, questions) => {
 	fetch(
-		`http://quiz-server-01.herokuapp.com/api/quizzes/${quizId}/attempts`,
+		`https://quiz-server-01.herokuapp.com/api/quizzes/${quizId}/attempts`,
 		{
 			method: "POST",
 			body: JSON.stringify(questions),
