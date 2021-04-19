@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 
-const TrueFalseQuestion = ({ question }) => {
+const TrueFalseQuestion = ({ question, graded, setGraded }) => {
     const [answer, setAnswer] = useState([]);
-
-    const [graded, setGraded] = useState(false);
 
     return (
         <div>
@@ -29,6 +27,7 @@ const TrueFalseQuestion = ({ question }) => {
                                     type="radio"
                                     onClick={() => {
                                         setAnswer("true");
+                                        question.answer = answer;
                                     }}
                                     name={question._id}
                                 />
@@ -41,6 +40,7 @@ const TrueFalseQuestion = ({ question }) => {
                                     type="radio"
                                     onClick={() => {
                                         setAnswer("false");
+                                        question.answer = answer;
                                     }}
                                     name={question._id}
                                 />
@@ -71,7 +71,7 @@ const TrueFalseQuestion = ({ question }) => {
                                 <i className="fas float-right fa-check"></i>
                             )}
                             {question.correct === "false" && (
-                                <i className="fas float-right fa-check"></i>
+                                <i className="fas float-right fa-times"></i>
                             )}
                         </li>
                         <li
@@ -100,14 +100,6 @@ const TrueFalseQuestion = ({ question }) => {
                     </>
                 )}
                 <br />
-                <button
-                    className="btn btn-success"
-                    onClick={() => {
-                        setGraded(true);
-                    }}
-                >
-                    Grade
-                </button>
             </ul>
             <div className="mt-1">
                 <p>Your answer: {answer}</p>

@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 
-const MultipleChoiceQuestion = ({ question }) => {
+const MultipleChoiceQuestion = ({ question, graded, setGraded }) => {
     const [answer, setAnswer] = useState([]);
-
-    const [graded, setGraded] = useState(false);
 
     return (
         <div>
@@ -35,9 +33,6 @@ const MultipleChoiceQuestion = ({ question }) => {
                                 <label>
                                     <input
                                         checked={answer === choice}
-                                        onClick={() => {
-                                            setAnswer(choice);
-                                        }}
                                         type="radio"
                                         name={question._id}
                                     />
@@ -60,6 +55,7 @@ const MultipleChoiceQuestion = ({ question }) => {
                                     <input
                                         onClick={() => {
                                             setAnswer(choice);
+                                            question.answer = answer;
                                         }}
                                         type="radio"
                                         name={question._id}
@@ -70,14 +66,6 @@ const MultipleChoiceQuestion = ({ question }) => {
                         );
                     })}
                 <br />
-                <button
-                    className="btn btn-success"
-                    onClick={() => {
-                        setGraded(true);
-                    }}
-                >
-                    Grade
-                </button>
             </ul>
             <div className="mt-1">
                 <p>Your answer: {answer}</p>

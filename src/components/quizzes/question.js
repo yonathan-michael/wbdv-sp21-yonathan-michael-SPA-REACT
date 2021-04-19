@@ -2,14 +2,22 @@ import React from "react";
 import TrueFalseQuestion from "./true-false-question";
 import MultipleChoiceQuestion from "./multiple-choice-question";
 
-const EditableQuestion = ({ question }) => {
+const EditableQuestion = ({ question, graded, setGraded }) => {
     return (
         <div>
             {question.type === "MULTIPLE_CHOICE" && (
-                <MultipleChoiceQuestion question={question} />
+                <MultipleChoiceQuestion
+                    graded={graded}
+                    setGraded={setGraded}
+                    question={question}
+                />
             )}
             {question.type === "TRUE_FALSE" && (
-                <TrueFalseQuestion question={question} />
+                <TrueFalseQuestion
+                    graded={graded}
+                    setGraded={setGraded}
+                    question={question}
+                />
             )}
         </div>
     );
